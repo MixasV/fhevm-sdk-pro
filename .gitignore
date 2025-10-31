@@ -61,7 +61,10 @@ temp/
 package-lock.json
 yarn.lock
 
-# Markdown files (except README.md)
+# Markdown files (except specific ones)
 *.md
 !README.md
 !**/README.md
+!docs/PERFORMANCE.md
+!docs/SECURITY.md
+!docs/api/*.md
