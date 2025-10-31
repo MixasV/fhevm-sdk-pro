@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "examples/react-counter/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "examples/react-counter/dist"
+      }
+    },
+    {
+      "src": "examples/svelte-voting/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "examples/svelte-voting/dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/react-counter/(.*)",
+      "dest": "/examples/react-counter/dist/$1"
+    },
+    {
+      "src": "/svelte-voting/(.*)",
+      "dest": "/examples/svelte-voting/dist/$1"
+    }
+  ]
+}
