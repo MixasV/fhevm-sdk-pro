@@ -6,15 +6,14 @@
  * @packageDocumentation
  */
 
-import { AbiCoder, BrowserProvider, Contract, JsonRpcProvider, type Eip1193Provider } from 'ethers'
-import { createInstance, initFhevm, type FhevmInstance } from 'fhevmjs'
+import { BrowserProvider, Contract, JsonRpcProvider, type Eip1193Provider } from 'ethers'
+import { initSDK, createInstance, SepoliaConfig, type FhevmInstance } from '@zama-fhe/relayer-sdk/web'
 
 import {
   ContractError,
   DecryptionError,
   EncryptionError,
   InitializationError,
-  NetworkError,
   ValidationError,
   WalletError,
 } from '../errors'
@@ -28,8 +27,6 @@ import type {
   EncryptionOptions,
   FHEVMConfig,
   NetworkInfo,
-  PublicKeyInfo,
-
   TransactionReceipt,
   Unsubscribe,
   WalletInfo,
@@ -53,7 +50,6 @@ export class FHEVMClient {
   private config: FHEVMConfig | null = null
   private provider: JsonRpcProvider | BrowserProvider | null = null
   private wallet: WalletInfo | null = null
-  private publicKey: PublicKeyInfo | null = null
   private decryptionCallbacks: Map<string, DecryptionCallback> = new Map()
   private decryptionRequests: Map<string, DecryptionRequest> = new Map()
 
@@ -80,8 +76,8 @@ export class FHEVMClient {
     }
 
     try {
-      // Initialize FHEVM WASM
-      await initFhevm()
+      // Initialize FHEVM SDK
+      await initSDK()
 
       // Store config
       this.config = config
@@ -91,10 +87,7 @@ export class FHEVMClient {
         this.provider = new JsonRpcProvider(config.rpcUrl)
       }
 
-      // Fetch public key from network
-      await this.fetchPublicKey()
-
-      // Create FHEVM instance
+      // Create FHEVM instance (relayer-sdk handles public key fetching)
       this.instance = await this.createFhevmInstance()
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -507,7 +500,6 @@ export class FHEVMClient {
     this.config = null
     this.provider = null
     this.wallet = null
-    this.publicKey = null
     this.decryptionCallbacks.clear()
     this.decryptionRequests.clear()
   }
@@ -515,55 +507,44 @@ export class FHEVMClient {
   // Private helper methods
 
   private async createFhevmInstance(): Promise<FhevmInstance> {
-    if (!this.config || !this.publicKey) {
-      throw new InitializationError('Config and public key required to create instance')
+    if (!this.config) {
+      throw new InitializationError('Config required to create instance')
     }
 
     try {
-      const instance = await createInstance({
-        chainId: this.config.chainId,
-        publicKey: this.publicKey.publicKey,
-      })
+      // Use SepoliaConfig from relayer-sdk for Sepolia testnet
+      // Or custom config for local/other networks
+      let instanceConfig
+      
+      if (this.config.chainId === 11155111) {
+        // Sepolia - use pre-configured setup from relayer-sdk
+        instanceConfig = {
+          ...SepoliaConfig,
+          ...(this.config.rpcUrl && { network: this.config.rpcUrl }),
+        }
+      } else if (this.config.chainId === 31337) {
+        // Hardhat local - use default config
+        instanceConfig = {
+          ...SepoliaConfig, // Use Sepolia as base
+          chainId: 31337,
+          gatewayChainId: 31337,
+          ...(this.config.rpcUrl && { network: this.config.rpcUrl }),
+        }
+      } else {
+        // Other networks - use Sepolia config as fallback
+        instanceConfig = {
+          ...SepoliaConfig,
+          chainId: this.config.chainId,
+          ...(this.config.rpcUrl && { network: this.config.rpcUrl }),
+        }
+      }
+
+      const instance = await createInstance(instanceConfig)
 
       return instance
     } catch (error) {
       throw new InitializationError(
         `Failed to create FHEVM instance: ${error instanceof Error ? error.message : 'Unknown error'}`
-      )
-    }
-  }
-
-  private async fetchPublicKey(): Promise<void> {
-    if (!this.provider) {
-      // If no provider, use mock public key for testing
-      this.publicKey = {
-        publicKey: this.generateMockPublicKey(),
-      }
-      return
-    }
-
-    try {
-      // Fetch public key from FHE library contract
-      const FHE_LIB_ADDRESS = '0x000000000000000000000000000000000000005d'
-      const GET_PUBLIC_KEY_DATA = '0xd9d47bb001' // first 4 bytes of keccak256('fhePubKey(bytes1)') + 1 byte for library
-      
-      const result = await this.provider.call({
-        to: FHE_LIB_ADDRESS,
-        data: GET_PUBLIC_KEY_DATA,
-      })
-
-      // Decode the result (bytes)
-      const abiCoder = AbiCoder.defaultAbiCoder()
-      const decoded = abiCoder.decode(['bytes'], result)
-      const publicKeyBytes = decoded[0] as string
-
-      // Remove '0x' prefix and store
-      this.publicKey = {
-        publicKey: publicKeyBytes.startsWith('0x') ? publicKeyBytes.slice(2) : publicKeyBytes,
-      }
-    } catch (error) {
-      throw new NetworkError(
-        `Failed to fetch public key: ${error instanceof Error ? error.message : 'Unknown error'}`
       )
     }
   }
@@ -585,14 +566,7 @@ export class FHEVMClient {
     return `req_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
   }
 
-  private generateMockPublicKey(): string {
-    // Generate a mock 64-byte public key
-    const bytes = new Uint8Array(64)
-    if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
-      crypto.getRandomValues(bytes)
-    }
-    return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('')
-  }
+
 
   private getNetworkName(chainId: number): string {
     const networks: Record<number, string> = {
