@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/solid",
+  "name": "@mixaspro/solid",
   "version": "1.0.0",
   "description": "Solid.js signals and utilities for FHEVM SDK",
   "keywords": [
@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@solidjs/testing-library": "^0.8.5",

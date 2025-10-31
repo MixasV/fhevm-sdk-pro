@@ -5,7 +5,7 @@
  */
 
 import { createSignal } from 'solid-js'
-import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@fhevm-sdk/core'
+import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@mixaspro/core'
 
 import { useFHEVM } from '../context'
 
@@ -27,7 +27,7 @@ export interface CreateEncryptReturn {
  * 
  * @example
  * ```tsx
- * import { createEncrypt } from '@fhevm-sdk/solid'
+ * import { createEncrypt } from '@mixaspro/solid'
  * 
  * function EncryptDemo() {
  *   const { data, isEncrypting, error, encrypt } = createEncrypt()

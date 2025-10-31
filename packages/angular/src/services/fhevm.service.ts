@@ -5,7 +5,7 @@
  */
 
 import { Injectable, OnDestroy } from '@angular/core'
-import { FHEVMClient } from '@fhevm-sdk/core'
+import { FHEVMClient } from '@mixaspro/core'
 import type {
   ContractFunctionParams,
   EncryptedType,
@@ -15,7 +15,7 @@ import type {
   NetworkInfo,
   TransactionReceipt,
   WalletInfo,
-} from '@fhevm-sdk/core'
+} from '@mixaspro/core'
 import { BehaviorSubject, Observable, Subject, from, throwError } from 'rxjs'
 import { catchError, map, takeUntil } from 'rxjs/operators'
 
@@ -33,7 +33,7 @@ export interface Eip1193Provider {
  * @example
  * ```typescript
  * import { Component, OnInit } from '@angular/core'
- * import { FHEVMService } from '@fhevm-sdk/angular'
+ * import { FHEVMService } from '@mixaspro/angular'
  * 
  * @Component({
  *   selector: 'app-root',
@@ -116,9 +116,9 @@ export class FHEVMService implements OnDestroy {
    */
   initialize(config: FHEVMConfig): Observable<void> {
     return from(this.initializeAsync(config)).pipe(
-      catchError((error): Observable<never> => {
+      catchError((error) => {
         this.errorSubject.next(error instanceof Error ? error : new Error('Initialization failed'))
-        return throwError(() => error) as Observable<never>
+        return throwError(() => error)
       }),
       takeUntil(this.destroy$)
     )
@@ -150,7 +150,7 @@ export class FHEVMService implements OnDestroy {
    */
   connectWallet(provider: Eip1193Provider): Observable<WalletInfo> {
     if (this.client === null || this.client === undefined) {
-      return (throwError(() => new Error('FHEVM client not initialized'))
+      return throwError(() => new Error('FHEVM client not initialized')) as Observable<never>
     }
 
     return from(this.client.connectWallet(provider)).pipe(
@@ -158,9 +158,9 @@ export class FHEVMService implements OnDestroy {
         this.walletSubject.next(walletInfo)
         return walletInfo
       }),
-      catchError((error): Observable<never> => {
+      catchError((error) => {
         this.errorSubject.next(error instanceof Error ? error : new Error('Wallet connection failed'))
-        return throwError(() => error) as Observable<never>
+        return throwError(() => error)
       }),
       takeUntil(this.destroy$)
     )
@@ -196,13 +196,13 @@ export class FHEVMService implements OnDestroy {
     options?: EncryptionOptions
   ): Observable<EncryptedValue> {
     if (this.client === null || this.client === undefined) {
-      return (throwError(() => new Error('FHEVM client not initialized'))
+      return throwError(() => new Error('FHEVM client not initialized')) as Observable<never>
     }
 
     return from(this.client.encrypt(value, type, options)).pipe(
-      catchError((error): Observable<never> => {
+      catchError((error) => {
         this.errorSubject.next(error instanceof Error ? error : new Error('Encryption failed'))
-        return throwError(() => error) as Observable<never>
+        return throwError(() => error)
       }),
       takeUntil(this.destroy$)
     )
@@ -225,13 +225,13 @@ export class FHEVMService implements OnDestroy {
    */
   decrypt(ciphertext: Uint8Array, timeout = 30000): Observable<bigint | boolean> {
     if (this.client === null || this.client === undefined) {
-      return (throwError(() => new Error('FHEVM client not initialized'))
+      return throwError(() => new Error('FHEVM client not initialized')) as Observable<never>
     }
 
     return from(this.decryptAsync(ciphertext, timeout)).pipe(
-      catchError((error): Observable<never> => {
+      catchError((error) => {
         this.errorSubject.next(error instanceof Error ? error : new Error('Decryption failed'))
-        return throwError(() => error) as Observable<never>
+        return throwError(() => error)
       }),
       takeUntil(this.destroy$)
     )
@@ -268,13 +268,13 @@ export class FHEVMService implements OnDestroy {
    */
   executeContract(params: ContractFunctionParams): Observable<TransactionReceipt> {
     if (this.client === null || this.client === undefined) {
-      return (throwError(() => new Error('FHEVM client not initialized'))
+      return throwError(() => new Error('FHEVM client not initialized')) as Observable<never>
     }
 
     return from(this.client.executeContract(params)).pipe(
-      catchError((error): Observable<never> => {
+      catchError((error) => {
         this.errorSubject.next(error instanceof Error ? error : new Error('Contract execution failed'))
-        return throwError(() => error) as Observable<never>
+        return throwError(() => error)
       }),
       takeUntil(this.destroy$)
     )

@@ -5,7 +5,7 @@
  */
 
 import { NgModule, ModuleWithProviders } from '@angular/core'
-import type { FHEVMConfig } from '@fhevm-sdk/core'
+import type { FHEVMConfig } from '@mixaspro/core'
 
 import { FHEVMService } from './services/fhevm.service'
 
@@ -30,7 +30,7 @@ export interface FHEVMModuleConfig {
  * @example
  * ```typescript
  * import { NgModule } from '@angular/core'
- * import { FHEVMModule } from '@fhevm-sdk/angular'
+ * import { FHEVMModule } from '@mixaspro/angular'
  * 
  * @NgModule({
  *   imports: [

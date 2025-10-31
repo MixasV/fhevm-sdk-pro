@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FHEVMProvider, useFHEVM, useWallet, useEncrypt, useWriteEncrypted } from '@fhevm-sdk/react'
+import { FHEVMProvider, useFHEVM, useWallet, useEncrypt, useWriteEncrypted } from '@mixaspro/react'
 
 const COUNTER_ABI = [
   {

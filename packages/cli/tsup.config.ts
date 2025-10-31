@@ -12,7 +12,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['@fhevm-sdk/core', 'commander', 'prompts', 'chalk', 'ora', 'fs-extra'],
+  external: ['@mixaspro/core', 'commander', 'prompts', 'chalk', 'ora', 'fs-extra'],
   outDir: 'dist',
   target: 'node18',
   platform: 'node',

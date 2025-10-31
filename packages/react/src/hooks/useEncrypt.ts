@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useState } from 'react'
-import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@fhevm-sdk/core'
+import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@mixaspro/core'
 
 import { useFHEVM } from './useFHEVM'
 

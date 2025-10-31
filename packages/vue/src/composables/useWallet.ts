@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { WalletInfo } from '@fhevm-sdk/core'
+import type { WalletInfo } from '@mixaspro/core'
 import { ref, computed } from 'vue'
 
 
@@ -60,7 +60,7 @@ export interface UseWalletReturn {
  * @example
  * ```vue
  * <script setup lang="ts">
- * import { useWallet } from '@fhevm-sdk/vue'
+ * import { useWallet } from '@mixaspro/vue'
  * 
  * const { wallet, isConnected, connect, disconnect } = useWallet()
  * 

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { WalletInfo } from '@fhevm-sdk/core'
+import type { WalletInfo } from '@mixaspro/core'
 import { createSignal } from 'solid-js'
 
 import { useFHEVM } from '../context'
@@ -35,7 +35,7 @@ export interface CreateWalletReturn {
  * 
  * @example
  * ```tsx
- * import { createWallet } from '@fhevm-sdk/solid'
+ * import { createWallet } from '@mixaspro/solid'
  * 
  * function WalletButton() {
  *   const { wallet, isConnecting, isConnected, connect, disconnect } = createWallet()

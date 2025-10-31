@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['solid-js', '@fhevm-sdk/core'],
+  external: ['solid-js', '@mixaspro/core'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'browser',

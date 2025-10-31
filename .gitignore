@@ -68,3 +68,6 @@ yarn.lock
 !docs/PERFORMANCE.md
 !docs/SECURITY.md
 !docs/api/*.md
+
+# PowerShell scripts (local only, not for GitHub)
+*.ps1

@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['@angular/core', 'rxjs', '@fhevm-sdk/core', 'tslib'],
+  external: ['@angular/core', 'rxjs', '@mixaspro/core', 'tslib'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'browser',

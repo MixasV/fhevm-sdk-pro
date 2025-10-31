@@ -5,8 +5,8 @@
  */
 
 
-import { FHEVMClient } from '@fhevm-sdk/core'
-import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import { FHEVMClient } from '@mixaspro/core'
+import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@mixaspro/core'
 import { createContext, useContext, createSignal, createEffect, onCleanup, type ParentComponent } from 'solid-js'
 
 /**
@@ -36,7 +36,7 @@ export interface FHEVMProviderOptions {
  * 
  * @example
  * ```tsx
- * import { FHEVMProvider } from '@fhevm-sdk/solid'
+ * import { FHEVMProvider } from '@mixaspro/solid'
  * 
  * function App() {
  *   return (
@@ -117,7 +117,7 @@ export const FHEVMProvider: ParentComponent<FHEVMProviderOptions> = (props) => {
  * 
  * @example
  * ```tsx
- * import { useFHEVM } from '@fhevm-sdk/solid'
+ * import { useFHEVM } from '@mixaspro/solid'
  * 
  * function Counter() {
  *   const { client, isInitialized, wallet } = useFHEVM()

@@ -5,7 +5,7 @@
  */
 
 import { createSignal, createEffect, onCleanup } from 'solid-js'
-import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import type { ContractFunctionParams, TransactionReceipt } from '@mixaspro/core'
 
 import { useFHEVM } from '../context'
 
@@ -28,7 +28,7 @@ export interface CreateContractWriteReturn {
  * 
  * @example
  * ```tsx
- * import { createContractWrite } from '@fhevm-sdk/solid'
+ * import { createContractWrite } from '@mixaspro/solid'
  * 
  * function Transfer() {
  *   const { data, isWriting, write } = createContractWrite({
@@ -135,7 +135,7 @@ export interface CreateContractReadReturn<T = unknown> {
  * 
  * @example
  * ```tsx
- * import { createContractRead } from '@fhevm-sdk/solid'
+ * import { createContractRead } from '@mixaspro/solid'
  * 
  * function Balance() {
  *   const { data, isLoading } = createContractRead({

@@ -69,7 +69,7 @@ export async function initCommand(options: InitOptions): Promise<void> {
 
     // Check if FHEVM is already configured
     const hasFHEVM = packageJson.dependencies && 
-                    Object.keys(packageJson.dependencies).some((dep: string) => dep.startsWith('@fhevm-sdk/'))
+                    Object.keys(packageJson.dependencies).some((dep: string) => dep.startsWith('@mixaspro-fhevm/'))
 
     if (hasFHEVM && !options.force) {
       spinner.warn(chalk.yellow('FHEVM packages already installed'))
@@ -81,16 +81,16 @@ export async function initCommand(options: InitOptions): Promise<void> {
 
     // Add dependencies
     const dependencies = {
-      '@fhevm-sdk/core': '^1.0.0',
+      '@mixaspro/core': '^1.0.0',
       'ethers': '^6.0.0',
     }
 
     if (framework === 'react') {
-      Object.assign(dependencies, { '@fhevm-sdk/react': '^1.0.0' })
+      Object.assign(dependencies, { '@mixaspro/react': '^1.0.0' })
     } else if (framework === 'vue') {
-      Object.assign(dependencies, { '@fhevm-sdk/vue': '^1.0.0' })
+      Object.assign(dependencies, { '@mixaspro/vue': '^1.0.0' })
     } else if (framework === 'svelte') {
-      Object.assign(dependencies, { '@fhevm-sdk/svelte': '^1.0.0' })
+      Object.assign(dependencies, { '@mixaspro/svelte': '^1.0.0' })
     }
 
     packageJson.dependencies = {
@@ -185,7 +185,7 @@ async function createExampleFile(projectPath: string, framework: string): Promis
   let exampleContent = ''
 
   if (framework === 'react') {
-    exampleContent = `import { FHEVMProvider, useFHEVM, useEncrypt } from '@fhevm-sdk/react'
+    exampleContent = `import { FHEVMProvider, useFHEVM, useEncrypt } from '@mixaspro/react'
 
 export function FHEVMExample() {
   return (
@@ -216,7 +216,7 @@ function EncryptionDemo() {
   } else if (framework === 'svelte') {
     exampleContent = `<script lang="ts">
   import { onMount } from 'svelte'
-  import { initializeFHEVM, encrypt, isEncrypting, encryptedData } from '@fhevm-sdk/svelte'
+  import { initializeFHEVM, encrypt, isEncrypting, encryptedData } from '@mixaspro/svelte'
 
   onMount(async () => {
     await initializeFHEVM({ chainId: 31337 })

@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/svelte",
+  "name": "@mixaspro/svelte",
   "version": "1.0.0",
   "description": "Svelte stores and utilities for FHEVM SDK",
   "keywords": [
@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@sveltejs/package": "^2.2.5",

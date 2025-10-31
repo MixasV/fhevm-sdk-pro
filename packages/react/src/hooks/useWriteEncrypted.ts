@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useState } from 'react'
-import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import type { ContractFunctionParams, TransactionReceipt } from '@mixaspro/core'
 
 import { useFHEVM } from './useFHEVM'
 

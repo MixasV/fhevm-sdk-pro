@@ -51,7 +51,7 @@ const LOG_LEVELS: Record<LogLevel, number> = {
  * 
  * @example
  * ```typescript
- * import { DevLogger } from '@fhevm-sdk/devtools'
+ * import { DevLogger } from '@mixaspro/devtools'
  * 
  * const logger = new DevLogger({ minLevel: 'info', console: true })
  * 

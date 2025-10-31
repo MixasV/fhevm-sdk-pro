@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/core",
+  "name": "@mixaspro/core",
   "version": "1.0.0",
   "description": "Framework-agnostic core SDK for FHEVM (Fully Homomorphic Encryption Virtual Machine)",
   "keywords": [

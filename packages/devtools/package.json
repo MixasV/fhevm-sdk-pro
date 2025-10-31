@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/devtools",
+  "name": "@mixaspro/devtools",
   "version": "1.0.0",
   "description": "Browser DevTools extension for debugging FHEVM applications",
   "keywords": [
@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.258",

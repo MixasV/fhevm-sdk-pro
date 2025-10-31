@@ -65,7 +65,7 @@ export interface MonitorStats {
  * 
  * @example
  * ```typescript
- * import { OperationMonitor } from '@fhevm-sdk/devtools'
+ * import { OperationMonitor } from '@mixaspro/devtools'
  * 
  * const monitor = new OperationMonitor()
  * 

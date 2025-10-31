@@ -4,8 +4,8 @@
  * @packageDocumentation
  */
 
-import { FHEVMClient } from '@fhevm-sdk/core'
-import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import { FHEVMClient } from '@mixaspro/core'
+import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@mixaspro/core'
 import { derived, writable, type Readable, type Writable } from 'svelte/store'
 
 /**

@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import { FHEVMClient, type FHEVMConfig, type WalletInfo, type NetworkInfo } from '@fhevm-sdk/core'
+import { FHEVMClient, type FHEVMConfig, type WalletInfo, type NetworkInfo } from '@mixaspro/core'
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 
 import { FHEVMContext, type FHEVMContextValue } from './FHEVMContext'
@@ -171,7 +171,7 @@ export function FHEVMProvider({
   useEffect(() => {
     return () => {
       if (client !== null) {
-        client.reset().catch((error) => {
+        client.reset().catch((error: unknown) => {
           console.error('Failed to cleanup FHEVM client:', error)
         })
       }

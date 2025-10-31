@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@fhevm-sdk/core'
+import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@mixaspro/core'
 import { writable, type Writable } from 'svelte/store'
 
 import { fhevmClient } from './fhevm'

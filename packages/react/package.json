@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/react",
+  "name": "@mixaspro/react",
   "version": "1.0.0",
   "description": "React hooks and components for FHEVM SDK",
   "keywords": [
@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^14.1.2",

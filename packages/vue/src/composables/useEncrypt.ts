@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@fhevm-sdk/core'
+import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@mixaspro/core'
 import { ref } from 'vue'
 
 
@@ -53,7 +53,7 @@ export interface UseEncryptReturn {
  * ```vue
  * <script setup lang="ts">
  * import { ref } from 'vue'
- * import { useEncrypt } from '@fhevm-sdk/vue'
+ * import { useEncrypt } from '@mixaspro/vue'
  * 
  * const value = ref(42)
  * const { data, isEncrypting, error, encrypt } = useEncrypt()

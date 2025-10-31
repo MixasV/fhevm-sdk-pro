@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['react', 'react-dom', '@fhevm-sdk/core'],
+  external: ['react', 'react-dom', '@mixaspro/core'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'browser',

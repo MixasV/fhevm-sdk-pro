@@ -54,20 +54,20 @@ export async function createCommand(
         lint: 'eslint . --ext .ts,.tsx',
       },
       dependencies: {
-        '@fhevm-sdk/core': '^1.0.0',
+        '@mixaspro/core': '^1.0.0',
         ...(options.framework === 'react' && {
-          '@fhevm-sdk/react': '^1.0.0',
+          '@mixaspro/react': '^1.0.0',
           'react': '^18.2.0',
           'react-dom': '^18.2.0',
           'ethers': '^6.0.0',
         }),
         ...(options.framework === 'vue' && {
-          '@fhevm-sdk/vue': '^1.0.0',
+          '@mixaspro/vue': '^1.0.0',
           'vue': '^3.3.0',
           'ethers': '^6.0.0',
         }),
         ...(options.framework === 'svelte' && {
-          '@fhevm-sdk/svelte': '^1.0.0',
+          '@mixaspro/svelte': '^1.0.0',
           'svelte': '^4.2.0',
           'ethers': '^6.0.0',
         }),
@@ -225,7 +225,7 @@ dist
  * Create React app files
  */
 async function createReactApp(srcPath: string): Promise<void> {
-  const appTsx = `import { FHEVMProvider, useFHEVM, useWallet, useEncrypt } from '@fhevm-sdk/react'
+  const appTsx = `import { FHEVMProvider, useFHEVM, useWallet, useEncrypt } from '@mixaspro/react'
 import { useState } from 'react'
 
 function App() {
@@ -336,7 +336,7 @@ createApp(App).mount('#app')`
 async function createSvelteApp(srcPath: string): Promise<void> {
   const appSvelte = `<script lang="ts">
   import { onMount } from 'svelte'
-  import { initializeFHEVM, isInitialized, connectWallet, wallet, encrypt, isEncrypting, encryptedData } from '@fhevm-sdk/svelte'
+  import { initializeFHEVM, isInitialized, connectWallet, wallet, encrypt, isEncrypting, encryptedData } from '@mixaspro/svelte'
 
   let value = ''
 

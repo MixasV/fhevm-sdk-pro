@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { FHEVMClient, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import type { FHEVMClient, NetworkInfo, WalletInfo } from '@mixaspro/core'
 import { inject, type InjectionKey } from 'vue'
 
 
@@ -53,7 +53,7 @@ export const FHEVMContextKey: InjectionKey<FHEVMContext> = Symbol('fhevm-context
  * @example
  * ```vue
  * <script setup lang="ts">
- * import { useFHEVM } from '@fhevm-sdk/vue'
+ * import { useFHEVM } from '@mixaspro/vue'
  * 
  * const { client, isInitialized, wallet } = useFHEVM()
  * </script>

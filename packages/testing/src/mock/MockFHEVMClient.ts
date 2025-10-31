@@ -16,14 +16,14 @@ import type {
   NetworkInfo,
   TransactionReceipt,
   WalletInfo,
-} from '@fhevm-sdk/core'
+} from '@mixaspro/core'
 
 /**
  * Mock FHEVM Client for testing
  * 
  * @example
  * ```typescript
- * import { MockFHEVMClient } from '@fhevm-sdk/testing'
+ * import { MockFHEVMClient } from '@mixaspro/testing'
  * 
  * describe('MyComponent', () => {
  *   let mockClient: MockFHEVMClient

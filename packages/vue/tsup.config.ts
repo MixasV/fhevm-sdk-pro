@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['vue', '@fhevm-sdk/core'],
+  external: ['vue', '@mixaspro/core'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'browser',

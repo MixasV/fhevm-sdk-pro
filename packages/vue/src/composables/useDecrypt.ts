@@ -46,7 +46,7 @@ export interface UseDecryptReturn {
  * @example
  * ```vue
  * <script setup lang="ts">
- * import { useDecrypt } from '@fhevm-sdk/vue'
+ * import { useDecrypt } from '@mixaspro/vue'
  * 
  * const { data, isDecrypting, error, decrypt } = useDecrypt()
  * 

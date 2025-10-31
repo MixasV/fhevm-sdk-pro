@@ -16,7 +16,7 @@ export * from './logger/DevLogger'
 export type {
   EncryptedValue,
   TransactionReceipt,
-} from '@fhevm-sdk/core'
+} from '@mixaspro/core'
 
 // Version
 export const VERSION = '1.0.0'

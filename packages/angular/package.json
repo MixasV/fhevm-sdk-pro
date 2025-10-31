@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/angular",
+  "name": "@mixaspro/angular",
   "version": "1.0.0",
   "description": "Angular services and utilities for FHEVM SDK",
   "keywords": [
@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*",
+    "@mixaspro/core": "workspace:*",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {

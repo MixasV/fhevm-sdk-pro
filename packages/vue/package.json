@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/vue",
+  "name": "@mixaspro/vue",
   "version": "1.0.0",
   "description": "Vue 3 composables for FHEVM SDK",
   "keywords": [
@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",

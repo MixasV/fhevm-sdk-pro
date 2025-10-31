@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['@fhevm-sdk/core'],
+  external: ['@mixaspro/core'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'neutral',

@@ -4,8 +4,8 @@
  * @packageDocumentation
  */
 
-import { FHEVMClient } from '@fhevm-sdk/core'
-import type { FHEVMConfig } from '@fhevm-sdk/core'
+import { FHEVMClient } from '@mixaspro/core'
+import type { FHEVMConfig } from '@mixaspro/core'
 import { reactive, type App, type Plugin } from 'vue'
 
 import { FHEVMContextKey, type FHEVMContext } from './composables/useFHEVM'
@@ -40,7 +40,7 @@ export interface FHEVMPluginOptions {
  * @example
  * ```typescript
  * import { createApp } from 'vue'
- * import { createFHEVMPlugin } from '@fhevm-sdk/vue'
+ * import { createFHEVMPlugin } from '@mixaspro/vue'
  * import App from './App.vue'
  * 
  * const app = createApp(App)

@@ -9,7 +9,7 @@ import type {
   WalletInfo,
   NetworkInfo,
   TransactionReceipt,
-} from '@fhevm-sdk/core'
+} from '@mixaspro/core'
 
 /**
  * Create mock encrypted value

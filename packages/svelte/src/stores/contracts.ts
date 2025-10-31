@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import type { ContractFunctionParams, TransactionReceipt } from '@mixaspro/core'
 import { writable, type Writable } from 'svelte/store'
 
 import { fhevmClient } from './fhevm'

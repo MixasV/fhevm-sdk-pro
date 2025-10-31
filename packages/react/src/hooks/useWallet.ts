@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useState } from 'react'
-import type { WalletInfo } from '@fhevm-sdk/core'
+import type { WalletInfo } from '@mixaspro/core'
 
 import { useFHEVM } from './useFHEVM'
 

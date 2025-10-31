@@ -1,5 +1,5 @@
 {
-  "name": "@fhevm-sdk/testing",
+  "name": "@mixaspro/testing",
   "version": "1.0.0",
   "description": "Testing utilities, mocks, and fixtures for FHEVM SDK",
   "keywords": [
@@ -46,7 +46,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@fhevm-sdk/core": "workspace:*"
+    "@mixaspro/core": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^29.5.11",

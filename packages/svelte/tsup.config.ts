@@ -9,7 +9,7 @@ export default defineConfig({
   minify: false,
   treeshake: true,
   splitting: false,
-  external: ['svelte', 'svelte/store', '@fhevm-sdk/core'],
+  external: ['svelte', 'svelte/store', '@mixaspro/core'],
   outDir: 'dist',
   target: 'es2020',
   platform: 'browser',

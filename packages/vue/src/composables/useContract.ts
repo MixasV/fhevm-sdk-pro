@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import type { ContractFunctionParams, TransactionReceipt } from '@mixaspro/core'
 import { ref, watch, onUnmounted } from 'vue'
 
 
@@ -129,7 +129,7 @@ export interface UseContractReadReturn<T = unknown> {
  * @example
  * ```vue
  * <script setup lang="ts">
- * import { useContractWrite } from '@fhevm-sdk/vue'
+ * import { useContractWrite } from '@mixaspro/vue'
  * 
  * const { data, isWriting, error, write } = useContractWrite({
  *   address: '0x...',
@@ -207,7 +207,7 @@ export function useContractWrite(params: UseContractWriteParams): UseContractWri
  * @example
  * ```vue
  * <script setup lang="ts">
- * import { useContractRead } from '@fhevm-sdk/vue'
+ * import { useContractRead } from '@mixaspro/vue'
  * 
  * const { data, isLoading, error, refetch } = useContractRead({
  *   address: '0x...',

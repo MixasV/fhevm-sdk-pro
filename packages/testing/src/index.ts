@@ -24,7 +24,7 @@ export type {
   WalletInfo,
   TransactionReceipt,
   ContractFunctionParams,
-} from '@fhevm-sdk/core'
+} from '@mixaspro/core'
 
 // Version
 export const VERSION = '1.0.0'

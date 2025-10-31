@@ -4,7 +4,7 @@
  * @packageDocumentation
  */
 
-import type { FHEVMClient, FHEVMConfig, WalletInfo, NetworkInfo } from '@fhevm-sdk/core'
+import type { FHEVMClient, FHEVMConfig, WalletInfo, NetworkInfo } from '@mixaspro/core'
 import { createContext } from 'react'
 
 /**

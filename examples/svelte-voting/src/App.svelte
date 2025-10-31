@@ -11,7 +11,7 @@
     writeContract,
     isWriting,
     transactionReceipt
-  } from '@fhevm-sdk/svelte'
+  } from '@mixaspro/svelte'
 
   const VOTING_ABI = [
     {
