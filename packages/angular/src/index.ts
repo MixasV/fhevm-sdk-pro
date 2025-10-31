@@ -1,10 +1,27 @@
 /**
  * FHEVM SDK Angular Adapter
  * 
- * Angular services and utilities for FHEVM
+ * Angular services and module for FHEVM SDK
  * 
  * @packageDocumentation
  */
 
-// Placeholder for Sprint 2 implementation
+// Module
+export * from './module'
+
+// Services
+export * from './services/fhevm.service'
+
+// Re-export core types
+export type {
+  FHEVMConfig,
+  EncryptedType,
+  EncryptedValue,
+  NetworkInfo,
+  WalletInfo,
+  TransactionReceipt,
+  ContractFunctionParams,
+} from '@fhevm-sdk/core'
+
+// Version
 export const VERSION = '1.0.0'
