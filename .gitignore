@@ -28,6 +28,7 @@ coverage/
 .cache/
 *.cache
 .eslintcache
+.angular/
 
 # Logs
 logs/
