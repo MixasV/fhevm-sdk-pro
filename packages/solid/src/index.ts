@@ -1,10 +1,29 @@
 /**
  * FHEVM SDK Solid.js Adapter
  * 
- * Solid.js signals and utilities for FHEVM
+ * Solid.js primitives and context for FHEVM SDK
  * 
  * @packageDocumentation
  */
 
-// Placeholder for Sprint 2 implementation
+// Context
+export * from './context'
+
+// Primitives
+export * from './primitives/createEncrypt'
+export * from './primitives/createWallet'
+export * from './primitives/createContract'
+
+// Re-export core types
+export type {
+  FHEVMConfig,
+  EncryptedType,
+  EncryptedValue,
+  NetworkInfo,
+  WalletInfo,
+  TransactionReceipt,
+  ContractFunctionParams,
+} from '@fhevm-sdk/core'
+
+// Version
 export const VERSION = '1.0.0'
