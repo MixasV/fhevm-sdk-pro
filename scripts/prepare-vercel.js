@@ -10,6 +10,7 @@ const examples = [
   'fhevm-svelte-voting-example',
   'fhevm-vue-token-example',
   'fhevm-solid-poll-example',
+  'fhevm-angular-auction-example',
   'fhevm-vanilla-message-example'
 ]
 
@@ -28,6 +29,7 @@ const reactDist = path.join(__dirname, '..', 'examples', 'react-counter', 'dist'
 const svelteDist = path.join(__dirname, '..', 'examples', 'svelte-voting', 'dist')
 const vueDist = path.join(__dirname, '..', 'examples', 'vue-token', 'dist')
 const solidDist = path.join(__dirname, '..', 'examples', 'solid-poll', 'dist')
+const angularDist = path.join(__dirname, '..', 'examples', 'angular-auction', 'dist')
 const vanillaDist = path.join(__dirname, '..', 'examples', 'vanilla-message', 'dist')
 
 // Create public directory
@@ -61,6 +63,13 @@ const solidTarget = path.join(publicDir, 'solid-poll')
 if (fs.existsSync(solidDist)) {
   fs.cpSync(solidDist, solidTarget, { recursive: true })
   console.log('✓ Copied solid-poll to public/')
+}
+
+// Copy angular-auction
+const angularTarget = path.join(publicDir, 'angular-auction')
+if (fs.existsSync(angularDist)) {
+  fs.cpSync(angularDist, angularTarget, { recursive: true })
+  console.log('✓ Copied angular-auction to public/')
 }
 
 // Copy vanilla-message
@@ -131,6 +140,12 @@ const indexHtml = `<!DOCTYPE html>
     <h2>🔵 Solid.js Private Poll</h2>
     <p>Anonymous polling with encrypted votes using Solid.js signals</p>
     <a href="/solid-poll/">View Demo →</a>
+  </div>
+
+  <div class="example">
+    <h2>🔴 Angular Blind Auction</h2>
+    <p>Sealed-bid auction with encrypted bids using Angular services</p>
+    <a href="/angular-auction/">View Demo →</a>
   </div>
 
   <div class="example">
