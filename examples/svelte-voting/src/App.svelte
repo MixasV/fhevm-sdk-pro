@@ -36,8 +36,8 @@
 
   onMount(async () => {
     await initializeFHEVM({ 
-      chainId: 31337,
-      rpcUrl: 'http://localhost:8545'
+      chainId: 8009,
+      rpcUrl: 'https://devnet.zama.ai'
     })
   })
 

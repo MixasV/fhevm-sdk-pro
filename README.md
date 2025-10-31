@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/your-org/fhevm-sdk-pro/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/fhevm-sdk-pro/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/your-org/fhevm-sdk-pro/branch/main/graph/badge.svg)](https://codecov.io/gh/your-org/fhevm-sdk-pro)
-[![npm version](https://badge.fury.io/js/%40fhevm-sdk%2Fcore.svg)](https://www.npmjs.com/package/@fhevm-sdk/core)
+[![npm version](https://badge.fury.io/js/%40fhevm-sdk%2Fcore.svg)](https://www.npmjs.com/package/@mixaspro/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Features
@@ -24,29 +24,29 @@
 
 ```bash
 # Create new project
-npx @fhevm-sdk/cli create my-fhevm-app
+npx @mixaspro/cli create my-fhevm-app
 
 # Or initialize in existing project
-npx @fhevm-sdk/cli init
+npx @mixaspro/cli init
 ```
 
 ### Manual Installation
 
 ```bash
 # Core + React
-pnpm add @fhevm-sdk/core @fhevm-sdk/react ethers
+pnpm add @mixaspro/core @mixaspro/react ethers
 
 # Core + Svelte
-pnpm add @fhevm-sdk/core @fhevm-sdk/svelte ethers
+pnpm add @mixaspro/core @mixaspro/svelte ethers
 
 # Core only
-pnpm add @fhevm-sdk/core ethers
+pnpm add @mixaspro/core ethers
 ```
 
 ### React Example
 
 ```tsx
-import { FHEVMProvider, useFHEVM, useEncrypt, useWriteEncrypted } from '@fhevm-sdk/react'
+import { FHEVMProvider, useFHEVM, useEncrypt, useWriteEncrypted } from '@mixaspro/react'
 
 function App() {
   return (
@@ -86,7 +86,7 @@ function Counter() {
 
 ```vue
 <script setup lang="ts">
-import { useFHEVM, useEncrypt, useWriteEncrypted } from '@fhevm-sdk/vue'
+import { useFHEVM, useEncrypt, useWriteEncrypted } from '@mixaspro/vue'
 
 const { isInitialized } = useFHEVM()
 const { encrypt, isEncrypting } = useEncrypt()
@@ -114,15 +114,15 @@ const handleSetValue = async (value: number) => {
 
 | Package                                    | Description                 | Version                                                                                                           |
 | ------------------------------------------ | --------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [@fhevm-sdk/core](./packages/core)         | Framework-agnostic core SDK | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/core.svg)](https://www.npmjs.com/package/@fhevm-sdk/core)         |
-| [@fhevm-sdk/react](./packages/react)       | React hooks and components  | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/react.svg)](https://www.npmjs.com/package/@fhevm-sdk/react)       |
-| [@fhevm-sdk/vue](./packages/vue)           | Vue 3 composables           | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/vue.svg)](https://www.npmjs.com/package/@fhevm-sdk/vue)           |
-| [@fhevm-sdk/svelte](./packages/svelte)     | Svelte stores               | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/svelte.svg)](https://www.npmjs.com/package/@fhevm-sdk/svelte)     |
-| [@fhevm-sdk/angular](./packages/angular)   | Angular services            | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/angular.svg)](https://www.npmjs.com/package/@fhevm-sdk/angular)   |
-| [@fhevm-sdk/solid](./packages/solid)       | Solid.js signals            | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/solid.svg)](https://www.npmjs.com/package/@fhevm-sdk/solid)       |
-| [@fhevm-sdk/testing](./packages/testing)   | Testing utilities           | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/testing.svg)](https://www.npmjs.com/package/@fhevm-sdk/testing)   |
-| [@fhevm-sdk/cli](./packages/cli)           | CLI scaffolding tool        | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/cli.svg)](https://www.npmjs.com/package/@fhevm-sdk/cli)           |
-| [@fhevm-sdk/devtools](./packages/devtools) | Browser DevTools extension  | [![npm](https://img.shields.io/npm/v/@fhevm-sdk/devtools.svg)](https://www.npmjs.com/package/@fhevm-sdk/devtools) |
+| [@mixaspro/core](./packages/core)         | Framework-agnostic core SDK | [![npm](https://img.shields.io/npm/v/@mixaspro/core.svg)](https://www.npmjs.com/package/@mixaspro/core)         |
+| [@mixaspro/react](./packages/react)       | React hooks and components  | [![npm](https://img.shields.io/npm/v/@mixaspro/react.svg)](https://www.npmjs.com/package/@mixaspro/react)       |
+| [@mixaspro/vue](./packages/vue)           | Vue 3 composables           | [![npm](https://img.shields.io/npm/v/@mixaspro/vue.svg)](https://www.npmjs.com/package/@mixaspro/vue)           |
+| [@mixaspro/svelte](./packages/svelte)     | Svelte stores               | [![npm](https://img.shields.io/npm/v/@mixaspro/svelte.svg)](https://www.npmjs.com/package/@mixaspro/svelte)     |
+| [@mixaspro/angular](./packages/angular)   | Angular services            | [![npm](https://img.shields.io/npm/v/@mixaspro/angular.svg)](https://www.npmjs.com/package/@mixaspro/angular)   |
+| [@mixaspro/solid](./packages/solid)       | Solid.js signals            | [![npm](https://img.shields.io/npm/v/@mixaspro/solid.svg)](https://www.npmjs.com/package/@mixaspro/solid)       |
+| [@mixaspro/testing](./packages/testing)   | Testing utilities           | [![npm](https://img.shields.io/npm/v/@mixaspro/testing.svg)](https://www.npmjs.com/package/@mixaspro/testing)   |
+| [@mixaspro/cli](./packages/cli)           | CLI scaffolding tool        | [![npm](https://img.shields.io/npm/v/@mixaspro/cli.svg)](https://www.npmjs.com/package/@mixaspro/cli)           |
+| [@mixaspro/devtools](./packages/devtools) | Browser DevTools extension  | [![npm](https://img.shields.io/npm/v/@mixaspro/devtools.svg)](https://www.npmjs.com/package/@mixaspro/devtools) |
 
 ## Documentation
 
@@ -136,13 +136,13 @@ const handleSetValue = async (value: number) => {
 Create a new FHEVM project in seconds:
 
 ```bash
-npx @fhevm-sdk/cli create my-app
+npx @mixaspro/cli create my-app
 ```
 
 Generate type-safe hooks from contract ABIs:
 
 ```bash
-npx @fhevm-sdk/cli generate-hooks --abi ./contracts/MyContract.json --framework react
+npx @mixaspro/cli generate-hooks --abi ./contracts/MyContract.json --framework react
 ```
 
 ## Development

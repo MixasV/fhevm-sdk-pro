@@ -5,9 +5,19 @@ const { execSync } = require('child_process')
 console.log('📦 Building examples...')
 
 // Build examples
+const examples = [
+  'fhevm-react-counter-example',
+  'fhevm-svelte-voting-example',
+  'fhevm-vue-token-example',
+  'fhevm-solid-poll-example',
+  'fhevm-vanilla-message-example'
+]
+
 try {
-  execSync('pnpm --filter fhevm-react-counter-example build', { stdio: 'inherit' })
-  execSync('pnpm --filter fhevm-svelte-voting-example build', { stdio: 'inherit' })
+  for (const example of examples) {
+    console.log(`Building ${example}...`)
+    execSync(`pnpm --filter ${example} build`, { stdio: 'inherit' })
+  }
 } catch (error) {
   console.error('❌ Failed to build examples:', error.message)
   process.exit(1)
@@ -16,6 +26,9 @@ try {
 const publicDir = path.join(__dirname, '..', 'public')
 const reactDist = path.join(__dirname, '..', 'examples', 'react-counter', 'dist')
 const svelteDist = path.join(__dirname, '..', 'examples', 'svelte-voting', 'dist')
+const vueDist = path.join(__dirname, '..', 'examples', 'vue-token', 'dist')
+const solidDist = path.join(__dirname, '..', 'examples', 'solid-poll', 'dist')
+const vanillaDist = path.join(__dirname, '..', 'examples', 'vanilla-message', 'dist')
 
 // Create public directory
 if (!fs.existsSync(publicDir)) {
@@ -34,6 +47,27 @@ const svelteTarget = path.join(publicDir, 'svelte-voting')
 if (fs.existsSync(svelteDist)) {
   fs.cpSync(svelteDist, svelteTarget, { recursive: true })
   console.log('✓ Copied svelte-voting to public/')
+}
+
+// Copy vue-token
+const vueTarget = path.join(publicDir, 'vue-token')
+if (fs.existsSync(vueDist)) {
+  fs.cpSync(vueDist, vueTarget, { recursive: true })
+  console.log('✓ Copied vue-token to public/')
+}
+
+// Copy solid-poll
+const solidTarget = path.join(publicDir, 'solid-poll')
+if (fs.existsSync(solidDist)) {
+  fs.cpSync(solidDist, solidTarget, { recursive: true })
+  console.log('✓ Copied solid-poll to public/')
+}
+
+// Copy vanilla-message
+const vanillaTarget = path.join(publicDir, 'vanilla-message')
+if (fs.existsSync(vanillaDist)) {
+  fs.cpSync(vanillaDist, vanillaTarget, { recursive: true })
+  console.log('✓ Copied vanilla-message to public/')
 }
 
 // Create index.html with links
@@ -85,6 +119,24 @@ const indexHtml = `<!DOCTYPE html>
     <h2>🎯 Svelte Voting Example</h2>
     <p>Private voting application built with Svelte stores</p>
     <a href="/svelte-voting/">View Demo →</a>
+  </div>
+
+  <div class="example">
+    <h2>💚 Vue 3 Token Example</h2>
+    <p>Encrypted ERC20 token with private balances using Vue composables</p>
+    <a href="/vue-token/">View Demo →</a>
+  </div>
+
+  <div class="example">
+    <h2>🔵 Solid.js Private Poll</h2>
+    <p>Anonymous polling with encrypted votes using Solid.js signals</p>
+    <a href="/solid-poll/">View Demo →</a>
+  </div>
+
+  <div class="example">
+    <h2>🟡 Vanilla JS Secret Message</h2>
+    <p>Pure JavaScript example with encrypted messages</p>
+    <a href="/vanilla-message/">View Demo →</a>
   </div>
 
   <hr style="margin: 40px 0;">
