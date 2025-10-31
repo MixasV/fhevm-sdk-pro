@@ -85,8 +85,8 @@ import { ref } from 'vue'
 import { useFHEVM, useWallet, useEncrypt } from '@mixaspro/vue'
 
 const fhevm = useFHEVM({
-  chainId: 8009,
-  rpcUrl: 'https://devnet.zama.ai'
+  chainId: 11155111,
+  rpcUrl: 'https://rpc.ankr.com/eth_sepolia'
 })
 
 const wallet = useWallet()

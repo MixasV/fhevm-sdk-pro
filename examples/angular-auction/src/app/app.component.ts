@@ -38,8 +38,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.fhevm.initialize({
-      chainId: 8009,
-      rpcUrl: 'https://devnet.zama.ai'
+      chainId: 11155111,
+      rpcUrl: 'https://rpc.ankr.com/eth_sepolia'
     }).subscribe({
       next: () => {
         this.isInitialized = true

@@ -175,8 +175,8 @@ export default function App() {
   return (
     <FHEVMProvider
       config={{
-        chainId: 8009,
-        rpcUrl: 'https://devnet.zama.ai'
+        chainId: 11155111,
+        rpcUrl: 'https://rpc.ankr.com/eth_sepolia'
       }}
       autoInit={true}
     >
