@@ -1,10 +1,22 @@
 /**
  * FHEVM SDK DevTools
  * 
- * Browser DevTools extension for debugging FHEVM applications
+ * Browser DevTools extension and debugging utilities for FHEVM SDK
  * 
  * @packageDocumentation
  */
 
-// Placeholder for Sprint 4 implementation
+// Monitor
+export * from './monitor/OperationMonitor'
+
+// Logger
+export * from './logger/DevLogger'
+
+// Re-export core types
+export type {
+  EncryptedValue,
+  TransactionReceipt,
+} from '@fhevm-sdk/core'
+
+// Version
 export const VERSION = '1.0.0'
