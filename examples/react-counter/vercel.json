@@ -1,6 +1,6 @@
 {
-  "buildCommand": "pnpm build",
+  "buildCommand": "cd ../.. && pnpm build && cd examples/react-counter && pnpm build",
   "outputDirectory": "dist",
-  "installCommand": "pnpm install",
+  "installCommand": "cd ../.. && pnpm install",
   "framework": null
 }
