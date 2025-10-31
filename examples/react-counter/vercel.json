@@ -1,7 +1,6 @@
 {
-  "buildCommand": "echo 'Using pre-built files'",
-  "devCommand": "echo 'Dev mode not available'",
-  "installCommand": "echo 'No install needed'",
-  "framework": null,
-  "outputDirectory": "dist"
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "installCommand": "pnpm install",
+  "framework": null
 }
