@@ -4,9 +4,11 @@
  * @packageDocumentation
  */
 
-import { ref, computed } from 'vue'
-import { useFHEVM } from './useFHEVM'
 import type { WalletInfo } from '@fhevm-sdk/core'
+import { ref, computed } from 'vue'
+
+
+import { useFHEVM } from './useFHEVM'
 
 /**
  * EIP-1193 provider interface
@@ -88,11 +90,11 @@ export function useWallet(): UseWalletReturn {
    * Connect wallet
    */
   async function connect(provider?: Eip1193Provider): Promise<WalletInfo> {
-    if (!client) {
+    if (client === null || client === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
-    if (!provider) {
+    if (provider === null || provider === undefined) {
       throw new Error('Provider is required')
     }
 

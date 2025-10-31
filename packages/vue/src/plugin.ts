@@ -4,10 +4,12 @@
  * @packageDocumentation
  */
 
-import { reactive, type App, type Plugin } from 'vue'
 import { FHEVMClient } from '@fhevm-sdk/core'
-import { FHEVMContextKey, type FHEVMContext } from './composables/useFHEVM'
 import type { FHEVMConfig } from '@fhevm-sdk/core'
+import { reactive, type App, type Plugin } from 'vue'
+
+import { FHEVMContextKey, type FHEVMContext } from './composables/useFHEVM'
+
 
 /**
  * FHEVM plugin options
@@ -72,9 +74,10 @@ export function createFHEVMPlugin(options: FHEVMPluginOptions): Plugin {
       context.network = fhevmClient.getNetwork()
 
       // Auto-connect if requested
-      if (options.autoConnect && (window as any).ethereum) {
+      const windowWithEthereum = window as unknown as { ethereum?: unknown }
+      if (options.autoConnect === true && windowWithEthereum.ethereum !== null && windowWithEthereum.ethereum !== undefined) {
         try {
-          const walletInfo = await fhevmClient.connectWallet((window as any).ethereum)
+          const walletInfo = await fhevmClient.connectWallet(windowWithEthereum.ethereum as Parameters<typeof fhevmClient.connectWallet>[0])
           context.wallet = walletInfo
         } catch (walletError) {
           console.warn('Auto-connect failed:', walletError)
@@ -92,7 +95,7 @@ export function createFHEVMPlugin(options: FHEVMPluginOptions): Plugin {
       app.provide(FHEVMContextKey, context)
 
       // Auto-initialize if requested
-      if (options.autoInit) {
+      if (options.autoInit === true) {
         initialize().catch((err) => {
           console.error('FHEVM initialization failed:', err)
         })

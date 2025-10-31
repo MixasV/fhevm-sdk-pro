@@ -4,9 +4,8 @@
  * @packageDocumentation
  */
 
-import { createContext } from 'react'
-
 import type { FHEVMClient, FHEVMConfig, WalletInfo, NetworkInfo } from '@fhevm-sdk/core'
+import { createContext } from 'react'
 
 /**
  * FHEVM Context value interface
@@ -45,7 +44,7 @@ export interface FHEVMContextValue {
   /**
    * Connect wallet function
    */
-  connectWallet: (provider?: any) => Promise<WalletInfo>
+  connectWallet: (provider?: unknown) => Promise<WalletInfo>
 
   /**
    * Disconnect wallet function

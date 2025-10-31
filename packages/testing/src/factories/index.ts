@@ -53,14 +53,16 @@ export function createMockEncryptedValue(
 export function createMockWalletInfo(
   overrides: Partial<WalletInfo> = {}
 ): WalletInfo {
-  const mockProvider = {
-    request: async () => {},
+  const mockProvider: { request: (args: { method: string; params?: unknown[] }) => Promise<unknown> } = {
+    request: async (): Promise<unknown> => {
+      return null
+    },
   }
   
   return {
     address: '0x1234567890123456789012345678901234567890',
     chainId: 31337,
-    provider: mockProvider as any,
+    provider: mockProvider as unknown as WalletInfo['provider'],
     ...overrides,
   }
 }
@@ -127,9 +129,9 @@ export function createMockTransactionReceipt(
  * await provider.request({ method: 'eth_requestAccounts' })
  * ```
  */
-export function createMockProvider() {
+export function createMockProvider(): { request: (args: { method: string; params?: unknown[] }) => Promise<unknown> } {
   return {
-    request: async (args: { method: string; params?: unknown[] }) => {
+    request: async (args: { method: string; params?: unknown[] }): Promise<unknown> => {
       switch (args.method) {
         case 'eth_requestAccounts':
           return ['0x1234567890123456789012345678901234567890']

@@ -4,9 +4,8 @@
  * @packageDocumentation
  */
 
-import { writable, type Writable } from 'svelte/store'
-
 import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import { writable, type Writable } from 'svelte/store'
 
 import { fhevmClient } from './fhevm'
 
@@ -28,7 +27,7 @@ export const contractError: Writable<Error | null> = writable(null)
 /**
  * Last contract read result
  */
-export const readData: Writable<unknown | null> = writable(null)
+export const readData: Writable<bigint | boolean | string | null> = writable(null)
 
 /**
  * Last transaction receipt
@@ -53,35 +52,44 @@ export const transactionReceipt: Writable<TransactionReceipt | null> = writable(
  * })
  * ```
  */
-export async function readContract(params: ContractFunctionParams): Promise<unknown> {
-  let client: any = null
-  
-  fhevmClient.subscribe((c) => {
-    client = c
-  })()
+export async function readContract(params: ContractFunctionParams): Promise<bigint | boolean | string> {
+  return new Promise<bigint | boolean | string>((resolve, reject) => {
+    const unsubscribe = fhevmClient.subscribe((client) => {
+      void (async (): Promise<void> => {
+        if (client === null || client === undefined) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  if (client === null || !client.isInitialized()) {
-    throw new Error('FHEVM client not initialized')
-  }
+        if (!client.isInitialized()) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  isReading.set(true)
-  contractError.set(null)
+        isReading.set(true)
+        contractError.set(null)
 
-  try {
-    const result = await client.executeContract(params)
-    
-    // Extract result from receipt (placeholder - needs proper implementation)
-    const value = result.hash
-    
-    readData.set(value)
-    return value
-  } catch (error) {
-    const err = error instanceof Error ? error : new Error('Contract read failed')
-    contractError.set(err)
-    throw err
-  } finally {
-    isReading.set(false)
-  }
+        try {
+          const result = await client.executeContract(params)
+          
+          // Extract result from receipt (placeholder - needs proper implementation)
+          const value: bigint | boolean | string = result.hash
+          
+          readData.set(value)
+          resolve(value)
+        } catch (error) {
+          const err = error instanceof Error ? error : new Error('Contract read failed')
+          contractError.set(err)
+          reject(err)
+        } finally {
+          isReading.set(false)
+          unsubscribe()
+        }
+      })()
+    })
+  })
 }
 
 /**
@@ -106,30 +114,39 @@ export async function readContract(params: ContractFunctionParams): Promise<unkn
 export async function writeContract(
   params: ContractFunctionParams
 ): Promise<TransactionReceipt> {
-  let client: any = null
-  
-  fhevmClient.subscribe((c) => {
-    client = c
-  })()
+  return new Promise<TransactionReceipt>((resolve, reject) => {
+    const unsubscribe = fhevmClient.subscribe((client) => {
+      void (async (): Promise<void> => {
+        if (client === null || client === undefined) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  if (client === null || !client.isInitialized()) {
-    throw new Error('FHEVM client not initialized')
-  }
+        if (!client.isInitialized()) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  isWriting.set(true)
-  contractError.set(null)
+        isWriting.set(true)
+        contractError.set(null)
 
-  try {
-    const receipt = await client.executeContract(params)
-    transactionReceipt.set(receipt)
-    return receipt
-  } catch (error) {
-    const err = error instanceof Error ? error : new Error('Contract write failed')
-    contractError.set(err)
-    throw err
-  } finally {
-    isWriting.set(false)
-  }
+        try {
+          const receipt = await client.executeContract(params)
+          transactionReceipt.set(receipt)
+          resolve(receipt)
+        } catch (error) {
+          const err = error instanceof Error ? error : new Error('Contract write failed')
+          contractError.set(err)
+          reject(err)
+        } finally {
+          isWriting.set(false)
+          unsubscribe()
+        }
+      })()
+    })
+  })
 }
 
 /**

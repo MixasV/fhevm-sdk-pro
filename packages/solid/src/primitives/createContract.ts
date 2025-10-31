@@ -5,8 +5,9 @@
  */
 
 import { createSignal, createEffect, onCleanup } from 'solid-js'
-import { useFHEVM } from '../context'
 import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+
+import { useFHEVM } from '../context'
 
 /**
  * Create contract write return type
@@ -50,7 +51,7 @@ export interface CreateContractWriteReturn {
  */
 export function createContractWrite(params: {
   address: string
-  abi: any[]
+  abi: readonly unknown[]
   functionName: string
 }): CreateContractWriteReturn {
   const { client } = useFHEVM()
@@ -62,7 +63,7 @@ export function createContractWrite(params: {
   async function write(execParams?: { args?: unknown[] }): Promise<TransactionReceipt> {
     const fhevmClient = client()
     
-    if (!fhevmClient) {
+    if (fhevmClient === null || fhevmClient === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
@@ -89,7 +90,7 @@ export function createContractWrite(params: {
     }
   }
 
-  function reset() {
+  function reset(): void {
     setData(null)
     setError(null)
     setIsWriting(false)
@@ -165,10 +166,10 @@ export function createContractRead<T = unknown>(
   
   let intervalId: ReturnType<typeof setInterval> | null = null
 
-  async function refetch(): Promise<T> {
+  const refetch = async (): Promise<T> => {
     const fhevmClient = client()
     
-    if (!fhevmClient) {
+    if (fhevmClient === null || fhevmClient === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
@@ -197,7 +198,7 @@ export function createContractRead<T = unknown>(
     }
   }
 
-  function startPolling() {
+  const startPolling = (): void => {
     if (intervalId !== null || !params.pollingInterval) {
       return
     }
@@ -209,7 +210,7 @@ export function createContractRead<T = unknown>(
     }, params.pollingInterval)
   }
 
-  function stopPolling() {
+  const stopPolling = (): void => {
     if (intervalId !== null) {
       clearInterval(intervalId)
       intervalId = null

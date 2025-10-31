@@ -4,9 +4,10 @@
  * @packageDocumentation
  */
 
-import { createSignal } from 'solid-js'
-import { useFHEVM } from '../context'
 import type { WalletInfo } from '@fhevm-sdk/core'
+import { createSignal } from 'solid-js'
+
+import { useFHEVM } from '../context'
 
 /**
  * EIP-1193 provider interface
@@ -64,10 +65,10 @@ export function createWallet(): CreateWalletReturn {
   const [isConnecting, setIsConnecting] = createSignal(false)
   const [error, setError] = createSignal<Error | null>(null)
 
-  async function connect(provider: Eip1193Provider): Promise<WalletInfo> {
+  const connect = async (provider: Eip1193Provider): Promise<WalletInfo> => {
     const fhevmClient = client()
     
-    if (!fhevmClient) {
+    if (fhevmClient === null || fhevmClient === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 

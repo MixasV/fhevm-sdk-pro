@@ -5,8 +5,9 @@
  */
 
 import { NgModule, ModuleWithProviders } from '@angular/core'
-import { FHEVMService } from './services/fhevm.service'
 import type { FHEVMConfig } from '@fhevm-sdk/core'
+
+import { FHEVMService } from './services/fhevm.service'
 
 /**
  * FHEVM module configuration

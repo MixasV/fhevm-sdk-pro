@@ -5,7 +5,6 @@
  */
 
 import { useCallback, useState } from 'react'
-
 import type { WalletInfo } from '@fhevm-sdk/core'
 
 import { useFHEVM } from './useFHEVM'
@@ -22,7 +21,7 @@ export interface UseWalletReturn {
   /**
    * Connect wallet
    */
-  connect: (provider?: any) => Promise<WalletInfo>
+  connect: (provider?: unknown) => Promise<WalletInfo>
 
   /**
    * Disconnect wallet
@@ -104,7 +103,7 @@ export function useWallet(): UseWalletReturn {
   const [error, setError] = useState<Error | null>(null)
 
   const connect = useCallback(
-    async (provider?: any): Promise<WalletInfo> => {
+    async (provider?: unknown): Promise<WalletInfo> => {
       setIsConnecting(true)
       setError(null)
 

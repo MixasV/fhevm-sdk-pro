@@ -4,9 +4,9 @@
  * @packageDocumentation
  */
 
+import { FHEVMClient } from '@fhevm-sdk/core'
+import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
 import { derived, writable, type Readable, type Writable } from 'svelte/store'
-
-import { FHEVMClient, type FHEVMConfig, type NetworkInfo, type WalletInfo } from '@fhevm-sdk/core'
 
 /**
  * FHEVM client store
@@ -96,24 +96,31 @@ export async function initializeFHEVM(config: FHEVMConfig): Promise<FHEVMClient>
  * await connectWallet(window.ethereum)
  * ```
  */
-export async function connectWallet(provider?: any): Promise<WalletInfo> {
+export async function connectWallet(provider?: Eip1193Provider): Promise<WalletInfo> {
   return new Promise<WalletInfo>((resolve, reject) => {
-    const unsubscribe = fhevmClient.subscribe(async (client) => {
-      if (client === null) {
-        reject(new Error('FHEVM client not initialized'))
-        return
-      }
+    const unsubscribe = fhevmClient.subscribe((client) => {
+      void (async (): Promise<void> => {
+        if (client === null) {
+          reject(new Error('FHEVM client not initialized'))
+          return
+        }
 
-      try {
-        const walletInfo = await client.connectWallet(provider)
-        wallet.set(walletInfo)
-        resolve(walletInfo)
-      } catch (error) {
-        const err = error instanceof Error ? error : new Error('Failed to connect wallet')
-        reject(err)
-      } finally {
-        unsubscribe()
-      }
+        try {
+          if (provider === null || provider === undefined) {
+            reject(new Error('Provider is required'))
+            unsubscribe()
+            return
+          }
+          const walletInfo = await client.connectWallet(provider)
+          wallet.set(walletInfo)
+          resolve(walletInfo)
+        } catch (error) {
+          const err = error instanceof Error ? error : new Error('Failed to connect wallet')
+          reject(err)
+        } finally {
+          unsubscribe()
+        }
+      })()
     })
   })
 }
@@ -142,18 +149,20 @@ export function disconnectWallet(): void {
  */
 export async function resetFHEVM(): Promise<void> {
   return new Promise<void>((resolve) => {
-    const unsubscribe = fhevmClient.subscribe(async (client) => {
-      if (client !== null) {
-        await client.reset()
-      }
+    const unsubscribe = fhevmClient.subscribe((client) => {
+      void (async (): Promise<void> => {
+        if (client !== null) {
+          await client.reset()
+        }
 
-      fhevmClient.set(null)
-      wallet.set(null)
-      network.set(null)
-      initError.set(null)
-      
-      unsubscribe()
-      resolve()
+        fhevmClient.set(null)
+        wallet.set(null)
+        network.set(null)
+        initError.set(null)
+        
+        unsubscribe()
+        resolve()
+      })()
     })
   })
 }

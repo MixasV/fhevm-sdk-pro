@@ -4,9 +4,11 @@
  * @packageDocumentation
  */
 
-import { ref, watch, onUnmounted } from 'vue'
-import { useFHEVM } from './useFHEVM'
 import type { ContractFunctionParams, TransactionReceipt } from '@fhevm-sdk/core'
+import { ref, watch, onUnmounted } from 'vue'
+
+
+import { useFHEVM } from './useFHEVM'
 
 /**
  * Contract write composable params
@@ -20,7 +22,7 @@ export interface UseContractWriteParams {
   /**
    * Contract ABI
    */
-  abi: any[]
+  abi: readonly unknown[]
 
   /**
    * Function name to call
@@ -70,7 +72,7 @@ export interface UseContractReadParams {
   /**
    * Contract ABI
    */
-  abi: any[]
+  abi: readonly unknown[]
 
   /**
    * Function name to call
@@ -152,7 +154,7 @@ export function useContractWrite(params: UseContractWriteParams): UseContractWri
    * Execute contract write
    */
   async function write(execParams?: { args?: unknown[] }): Promise<TransactionReceipt> {
-    if (!client) {
+    if (client === null || client === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
@@ -239,7 +241,7 @@ export function useContractRead<T = unknown>(
    * Fetch contract data
    */
   async function refetch(): Promise<T> {
-    if (!client) {
+    if (client === null || client === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
@@ -271,7 +273,7 @@ export function useContractRead<T = unknown>(
    * Start polling
    */
   function startPolling(): void {
-    if (intervalId !== null || !params.pollingInterval) {
+    if (intervalId !== null || params.pollingInterval === null || params.pollingInterval === undefined || params.pollingInterval === 0) {
       return
     }
 

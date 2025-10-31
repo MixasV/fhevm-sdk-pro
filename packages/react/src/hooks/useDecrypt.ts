@@ -30,7 +30,7 @@ export interface UseDecryptReturn {
   /**
    * Last decrypted value
    */
-  data: unknown | null
+  data: bigint | boolean | null
 
   /**
    * Reset state
@@ -92,10 +92,10 @@ export function useDecrypt(): UseDecryptReturn {
   
   const [isDecrypting, setIsDecrypting] = useState(false)
   const [error, setError] = useState<Error | null>(null)
-  const [data, setData] = useState<unknown | null>(null)
+  const [data, setData] = useState<bigint | boolean | null>(null)
 
   const decrypt = useCallback(
-    async (ciphertext: Uint8Array, timeout = 30000): Promise<unknown> => {
+    async (ciphertext: Uint8Array, timeout = 30000): Promise<bigint | boolean> => {
       if (!isInitialized || client === null) {
         throw new Error('FHEVM client not initialized')
       }

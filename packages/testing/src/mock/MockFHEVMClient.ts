@@ -5,16 +5,17 @@
  */
 
 import type {
-  FHEVMConfig,
-  NetworkInfo,
-  WalletInfo,
-  EncryptedValue,
-  EncryptedType,
-  EncryptionOptions,
+  ContractFunctionParams,
   DecryptionRequest,
   DecryptionResult,
+  Eip1193Provider,
+  EncryptedType,
+  EncryptedValue,
+  EncryptionOptions,
+  FHEVMConfig,
+  NetworkInfo,
   TransactionReceipt,
-  ContractFunctionParams,
+  WalletInfo,
 } from '@fhevm-sdk/core'
 
 /**
@@ -56,7 +57,7 @@ export class MockFHEVMClient {
   
   // Call tracking
   public initializeCalls: FHEVMConfig[] = []
-  public connectWalletCalls: any[] = []
+  public connectWalletCalls: unknown[] = []
   public encryptCalls: Array<{ value: unknown; type: EncryptedType; options?: EncryptionOptions }> = []
   public decryptCalls: Uint8Array[] = []
   public executeContractCalls: ContractFunctionParams[] = []
@@ -77,12 +78,12 @@ export class MockFHEVMClient {
   /**
    * Connect mock wallet
    */
-  async connectWallet(provider: any): Promise<WalletInfo> {
+  async connectWallet(provider: unknown): Promise<WalletInfo> {
     this.connectWalletCalls.push(provider)
     const wallet: WalletInfo = {
       address: '0x1234567890123456789012345678901234567890',
-      chainId: this._config?.chainId || 31337,
-      provider,
+      chainId: this._config?.chainId ?? 31337,
+      provider: provider as Eip1193Provider,
     }
     this._wallet = wallet
     return wallet
@@ -105,7 +106,7 @@ export class MockFHEVMClient {
   ): Promise<EncryptedValue> {
     this.encryptCalls.push({ value, type, options })
     
-    if (this.mockEncryptedValue) {
+    if (this.mockEncryptedValue !== null && this.mockEncryptedValue !== undefined) {
       return this.mockEncryptedValue
     }
     
@@ -148,7 +149,7 @@ export class MockFHEVMClient {
   async executeContract(params: ContractFunctionParams): Promise<TransactionReceipt> {
     this.executeContractCalls.push(params)
     
-    if (this.mockTransactionReceipt) {
+    if (this.mockTransactionReceipt !== null && this.mockTransactionReceipt !== undefined) {
       return this.mockTransactionReceipt
     }
     
@@ -165,7 +166,7 @@ export class MockFHEVMClient {
    * Get network info
    */
   getNetwork(): NetworkInfo {
-    if (!this._network) {
+    if (this._network === null || this._network === undefined) {
       throw new Error('Client not initialized')
     }
     return this._network

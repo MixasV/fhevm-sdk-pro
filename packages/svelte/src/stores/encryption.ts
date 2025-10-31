@@ -4,9 +4,8 @@
  * @packageDocumentation
  */
 
-import { writable, type Writable } from 'svelte/store'
-
 import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@fhevm-sdk/core'
+import { writable, type Writable } from 'svelte/store'
 
 import { fhevmClient } from './fhevm'
 
@@ -46,30 +45,39 @@ export async function encrypt(
   type: EncryptedType,
   options?: EncryptionOptions
 ): Promise<EncryptedValue> {
-  let client: any = null
-  
-  fhevmClient.subscribe((c) => {
-    client = c
-  })()
+  return new Promise<EncryptedValue>((resolve, reject) => {
+    const unsubscribe = fhevmClient.subscribe((client) => {
+      void (async (): Promise<void> => {
+        if (client === null || client === undefined) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  if (client === null || !client.isInitialized()) {
-    throw new Error('FHEVM client not initialized')
-  }
+        if (!client.isInitialized()) {
+          reject(new Error('FHEVM client not initialized'))
+          unsubscribe()
+          return
+        }
 
-  isEncrypting.set(true)
-  encryptionError.set(null)
+        isEncrypting.set(true)
+        encryptionError.set(null)
 
-  try {
-    const encrypted = await client.encrypt(value, type, options)
-    encryptedData.set(encrypted)
-    return encrypted
-  } catch (error) {
-    const err = error instanceof Error ? error : new Error('Encryption failed')
-    encryptionError.set(err)
-    throw err
-  } finally {
-    isEncrypting.set(false)
-  }
+        try {
+          const encrypted = await client.encrypt(value, type, options)
+          encryptedData.set(encrypted)
+          resolve(encrypted)
+        } catch (error) {
+          const err = error instanceof Error ? error : new Error('Encryption failed')
+          encryptionError.set(err)
+          reject(err)
+        } finally {
+          isEncrypting.set(false)
+          unsubscribe()
+        }
+      })()
+    })
+  })
 }
 
 /**

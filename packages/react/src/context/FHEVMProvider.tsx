@@ -4,9 +4,8 @@
  * @packageDocumentation
  */
 
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-
 import { FHEVMClient, type FHEVMConfig, type WalletInfo, type NetworkInfo } from '@fhevm-sdk/core'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 
 import { FHEVMContext, type FHEVMContextValue } from './FHEVMContext'
 
@@ -107,13 +106,13 @@ export function FHEVMProvider({
   /**
    * Connect wallet
    */
-  const connectWallet = useCallback(async (provider?: any): Promise<WalletInfo> => {
+  const connectWallet = useCallback(async (provider?: unknown): Promise<WalletInfo> => {
     if (client === null) {
       throw new Error('FHEVM client not initialized')
     }
 
     try {
-      const walletInfo = await client.connectWallet(provider)
+      const walletInfo = await client.connectWallet(provider as Parameters<typeof client.connectWallet>[0])
       setWallet(walletInfo)
       return walletInfo
     } catch (error) {
@@ -157,9 +156,9 @@ export function FHEVMProvider({
   useEffect(() => {
     if (autoConnect && isInitialized && wallet === null && typeof window !== 'undefined') {
       // Check if ethereum provider is available
-      const ethereum = (window as any).ethereum
-      if (ethereum !== undefined && ethereum !== null) {
-        connectWallet(ethereum).catch((error) => {
+      const windowWithEthereum = window as unknown as { ethereum?: unknown }
+      if (windowWithEthereum.ethereum !== undefined && windowWithEthereum.ethereum !== null) {
+        connectWallet(windowWithEthereum.ethereum).catch((error) => {
           console.error('Failed to auto-connect wallet:', error)
         })
       }

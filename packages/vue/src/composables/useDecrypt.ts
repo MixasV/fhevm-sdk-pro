@@ -5,6 +5,7 @@
  */
 
 import { ref } from 'vue'
+
 import { useFHEVM } from './useFHEVM'
 
 /**
@@ -14,7 +15,7 @@ export interface UseDecryptReturn {
   /**
    * Decrypted data
    */
-  data: unknown | null
+  data: bigint | boolean | null
 
   /**
    * Whether decryption is in progress
@@ -67,15 +68,15 @@ export interface UseDecryptReturn {
 export function useDecrypt(): UseDecryptReturn {
   const { client } = useFHEVM()
   
-  const data = ref<unknown | null>(null)
+  const data = ref<bigint | boolean | null>(null)
   const isDecrypting = ref(false)
   const error = ref<Error | null>(null)
 
   /**
    * Decrypt ciphertext
    */
-  async function decrypt(ciphertext: Uint8Array, timeout = 30000): Promise<unknown> {
-    if (!client) {
+  async function decrypt(ciphertext: Uint8Array, timeout = 30000): Promise<bigint | boolean> {
+    if (client === null || client === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 

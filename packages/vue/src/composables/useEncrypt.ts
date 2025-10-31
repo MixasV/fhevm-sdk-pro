@@ -4,9 +4,11 @@
  * @packageDocumentation
  */
 
-import { ref } from 'vue'
-import { useFHEVM } from './useFHEVM'
 import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@fhevm-sdk/core'
+import { ref } from 'vue'
+
+
+import { useFHEVM } from './useFHEVM'
 
 /**
  * Encrypt composable return type
@@ -87,7 +89,7 @@ export function useEncrypt(): UseEncryptReturn {
     type: EncryptedType,
     options?: EncryptionOptions
   ): Promise<EncryptedValue> {
-    if (!client) {
+    if (client === null || client === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 

@@ -121,6 +121,7 @@ export class DevLogger {
 
     if (this.config.console) {
       const consoleMethod = level === 'debug' ? 'log' : level
+      // eslint-disable-next-line no-console
       console[consoleMethod](`[FHEVM ${level.toUpperCase()}]`, message, data ?? '')
     }
   }
@@ -134,12 +135,13 @@ export class DevLogger {
   getLogs(filter?: { level?: LogLevel; since?: number }): LogEntry[] {
     let logs = this.logs
 
-    if (filter?.level) {
+    if (filter?.level !== null && filter?.level !== undefined) {
       logs = logs.filter((log) => log.level === filter.level)
     }
 
-    if (filter?.since !== undefined) {
-      logs = logs.filter((log) => log.timestamp >= filter.since!)
+    if (filter?.since !== undefined && filter.since !== null) {
+      const since = filter.since
+      logs = logs.filter((log) => log.timestamp >= since)
     }
 
     return logs

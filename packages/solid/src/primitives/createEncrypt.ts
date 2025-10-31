@@ -5,8 +5,9 @@
  */
 
 import { createSignal } from 'solid-js'
-import { useFHEVM } from '../context'
 import type { EncryptedValue, EncryptedType, EncryptionOptions } from '@fhevm-sdk/core'
+
+import { useFHEVM } from '../context'
 
 /**
  * Create encrypt primitive return type
@@ -61,7 +62,7 @@ export function createEncrypt(): CreateEncryptReturn {
   ): Promise<EncryptedValue> {
     const fhevmClient = client()
     
-    if (!fhevmClient) {
+    if (fhevmClient === null || fhevmClient === undefined) {
       throw new Error('FHEVM client not initialized')
     }
 
@@ -81,7 +82,7 @@ export function createEncrypt(): CreateEncryptReturn {
     }
   }
 
-  function reset() {
+  const reset = (): void => {
     setData(null)
     setError(null)
     setIsEncrypting(false)

@@ -4,9 +4,10 @@
  * @packageDocumentation
  */
 
-import * as fs from 'fs-extra'
 import * as path from 'path'
+
 import chalk from 'chalk'
+import * as fs from 'fs-extra'
 import ora from 'ora'
 
 interface GenerateTypesOptions {
@@ -49,16 +50,17 @@ export async function generateTypesCommand(
       process.exit(1)
     }
 
-    const abiContent = await fs.readJSON(abiPath)
-    const abi: ABIFunction[] = Array.isArray(abiContent) ? abiContent : abiContent.abi
+    const abiContent: unknown = await fs.readJSON(abiPath)
+    const abi: ABIFunction[] = Array.isArray(abiContent) ? abiContent as ABIFunction[] : (abiContent as { abi: ABIFunction[] }).abi
 
-    if (!abi) {
+    if (abi === null || abi === undefined || abi.length === 0) {
       spinner.fail(chalk.red('Invalid ABI format'))
       process.exit(1)
     }
 
     // Extract contract name
-    const contractName = options.contractName || 
+    const contractName = (options.contractName !== null && options.contractName !== undefined && options.contractName !== '') ?
+                        options.contractName :
                         path.basename(abiFile, path.extname(abiFile))
 
     spinner.text = 'Parsing ABI and generating types...'
@@ -74,7 +76,9 @@ export async function generateTypesCommand(
     await fs.writeFile(outputPath, typeCode)
 
     spinner.succeed(chalk.green(`Types generated successfully!`))
+    // eslint-disable-next-line no-console
     console.log(chalk.white(`\nOutput: ${chalk.cyan(options.output)}`))
+    // eslint-disable-next-line no-console
     console.log(chalk.white(`Contract: ${chalk.cyan(contractName)}\n`))
 
   } catch (error) {

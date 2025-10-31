@@ -7,6 +7,7 @@
  */
 
 import { Command } from 'commander'
+
 import { createCommand } from './commands/create'
 import { generateTypesCommand } from './commands/generate-types'
 import { initCommand } from './commands/init'

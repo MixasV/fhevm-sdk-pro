@@ -4,9 +4,10 @@
  * @packageDocumentation
  */
 
-import { createContext, useContext, createSignal, createEffect, onCleanup, type ParentComponent } from 'solid-js'
+
 import { FHEVMClient } from '@fhevm-sdk/core'
-import type { FHEVMConfig, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import type { Eip1193Provider, FHEVMConfig, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import { createContext, useContext, createSignal, createEffect, onCleanup, type ParentComponent } from 'solid-js'
 
 /**
  * FHEVM context interface
@@ -65,9 +66,10 @@ export const FHEVMProvider: ParentComponent<FHEVMProviderOptions> = (props) => {
       setNetwork(fhevmClient.getNetwork())
 
       // Auto-connect if requested
-      if (props.autoConnect && (window as any).ethereum) {
+      const windowWithEthereum = window as unknown as { ethereum?: unknown }
+      if (props.autoConnect === true && windowWithEthereum.ethereum !== null && windowWithEthereum.ethereum !== undefined) {
         try {
-          const walletInfo = await fhevmClient.connectWallet((window as any).ethereum)
+          const walletInfo = await fhevmClient.connectWallet(windowWithEthereum.ethereum as unknown as Eip1193Provider)
           setWallet(walletInfo)
         } catch (walletError) {
           console.warn('Auto-connect failed:', walletError)
@@ -81,7 +83,7 @@ export const FHEVMProvider: ParentComponent<FHEVMProviderOptions> = (props) => {
 
   // Auto-initialize
   createEffect(() => {
-    if (props.autoInit) {
+    if (props.autoInit === true) {
       initialize().catch((err) => {
         console.error('FHEVM initialization failed:', err)
       })
@@ -131,7 +133,7 @@ export const FHEVMProvider: ParentComponent<FHEVMProviderOptions> = (props) => {
 export function useFHEVM(): FHEVMContextValue {
   const context = useContext(FHEVMContext)
   
-  if (!context) {
+  if (context === null || context === undefined) {
     throw new Error('useFHEVM must be used within FHEVMProvider')
   }
   

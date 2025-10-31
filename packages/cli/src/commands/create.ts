@@ -4,10 +4,11 @@
  * @packageDocumentation
  */
 
-import * as fs from 'fs-extra'
-import * as path from 'path'
 import { execSync } from 'child_process'
+import * as path from 'path'
+
 import chalk from 'chalk'
+import * as fs from 'fs-extra'
 import ora from 'ora'
 
 interface CreateOptions {

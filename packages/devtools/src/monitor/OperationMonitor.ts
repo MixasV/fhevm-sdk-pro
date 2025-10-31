@@ -120,7 +120,7 @@ export class OperationMonitor {
   completeOperation(id: string, result?: unknown): void {
     const record = this.operations.get(id)
     
-    if (!record) {
+    if (record === null || record === undefined) {
       return
     }
 
@@ -140,7 +140,7 @@ export class OperationMonitor {
   failOperation(id: string, error: string | Error): void {
     const record = this.operations.get(id)
     
-    if (!record) {
+    if (record === null || record === undefined) {
       return
     }
 
@@ -173,15 +173,15 @@ export class OperationMonitor {
   }): OperationRecord[] {
     const ops = Array.from(this.operations.values())
     
-    if (!filter) {
+    if (filter === null || filter === undefined) {
       return ops
     }
 
     return ops.filter((op) => {
-      if (filter.type && op.type !== filter.type) {
+      if (filter.type !== null && filter.type !== undefined && op.type !== filter.type) {
         return false
       }
-      if (filter.status && op.status !== filter.status) {
+      if (filter.status !== null && filter.status !== undefined && op.status !== filter.status) {
         return false
       }
       return true
@@ -199,7 +199,7 @@ export class OperationMonitor {
     const successful = operations.filter((op) => op.status === 'success')
     const failed = operations.filter((op) => op.status === 'failed')
     
-    const totalDuration = successful.reduce((sum, op) => sum + (op.duration || 0), 0)
+    const totalDuration = successful.reduce((sum, op) => sum + (op.duration ?? 0), 0)
     const avgDuration = successful.length > 0 ? totalDuration / successful.length : 0
     
     const byType: Record<OperationType, number> = {

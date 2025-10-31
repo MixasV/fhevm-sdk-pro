@@ -4,7 +4,12 @@
  * @packageDocumentation
  */
 
-import type { Eip1193Provider } from 'ethers'
+import type { Eip1193Provider as EthersEip1193Provider } from 'ethers'
+
+/**
+ * EIP-1193 Provider interface (re-exported from ethers)
+ */
+export type Eip1193Provider = EthersEip1193Provider
 
 /**
  * Supported encrypted types in FHEVM

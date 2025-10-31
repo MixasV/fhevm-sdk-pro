@@ -4,8 +4,9 @@
  * @packageDocumentation
  */
 
-import { inject, type InjectionKey } from 'vue'
 import type { FHEVMClient, NetworkInfo, WalletInfo } from '@fhevm-sdk/core'
+import { inject, type InjectionKey } from 'vue'
+
 
 /**
  * FHEVM context interface
@@ -61,7 +62,7 @@ export const FHEVMContextKey: InjectionKey<FHEVMContext> = Symbol('fhevm-context
 export function useFHEVM(): FHEVMContext {
   const context = inject(FHEVMContextKey)
   
-  if (!context) {
+  if (context === null || context === undefined) {
     throw new Error('useFHEVM must be used within FHEVMProvider')
   }
   

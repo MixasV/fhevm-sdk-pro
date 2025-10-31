@@ -5,7 +5,6 @@
  */
 
 import { useCallback, useState } from 'react'
-
 import type { EncryptedType, EncryptedValue, EncryptionOptions } from '@fhevm-sdk/core'
 
 import { useFHEVM } from './useFHEVM'
