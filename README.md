@@ -20,33 +20,54 @@
 
 ## Quick Start
 
-### Installation
+### Using CLI (Recommended)
 
 ```bash
-npm install @fhevm-sdk/core @fhevm-sdk/react
-# or
-pnpm add @fhevm-sdk/core @fhevm-sdk/react
-# or
-yarn add @fhevm-sdk/core @fhevm-sdk/react
+# Create new project
+npx @fhevm-sdk/cli create my-fhevm-app
+
+# Or initialize in existing project
+npx @fhevm-sdk/cli init
+```
+
+### Manual Installation
+
+```bash
+# Core + React
+pnpm add @fhevm-sdk/core @fhevm-sdk/react ethers
+
+# Core + Svelte
+pnpm add @fhevm-sdk/core @fhevm-sdk/svelte ethers
+
+# Core only
+pnpm add @fhevm-sdk/core ethers
 ```
 
 ### React Example
 
 ```tsx
-import { useFHEVM, useEncrypt, useWriteEncrypted } from '@fhevm-sdk/react'
+import { FHEVMProvider, useFHEVM, useEncrypt, useWriteEncrypted } from '@fhevm-sdk/react'
+
+function App() {
+  return (
+    <FHEVMProvider config={{ chainId: 31337 }}>
+      <Counter />
+    </FHEVMProvider>
+  )
+}
 
 function Counter() {
-  const { isInitialized } = useFHEVM()
+  const { isInitialized, wallet } = useFHEVM()
   const { encrypt, isEncrypting } = useEncrypt()
-  const { write, isPending } = useWriteEncrypted({
+  const { write, isWriting } = useWriteEncrypted({
     address: '0x...',
     abi: counterABI,
-    functionName: 'setEncrypted',
+    functionName: 'increment',
   })
 
-  const handleSetValue = async (value: number) => {
+  const handleIncrement = async (value: number) => {
     const encrypted = await encrypt(value, 'euint32')
-    await write({ args: [encrypted] })
+    await write({ args: [encrypted.value] })
   }
 
   if (!isInitialized) {
