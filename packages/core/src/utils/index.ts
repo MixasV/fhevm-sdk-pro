@@ -6,6 +6,8 @@
 
 import type { EncryptedType } from '../types'
 
+export * from './retry'
+
 /**
  * Check if value is a valid encrypted type
  * 

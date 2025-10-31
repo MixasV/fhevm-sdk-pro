@@ -6,3 +6,4 @@
 
 export * from './TransactionQueue'
 export * from './EncryptionCache'
+export * from './OperationBatcher'
