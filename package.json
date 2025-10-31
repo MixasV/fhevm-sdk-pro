@@ -1,0 +1,68 @@
+{
+  "name": "@fhevm-sdk/root",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Enterprise-Grade Universal FHEVM SDK with Zero-Configuration Setup and Production-Ready Tooling",
+  "keywords": [
+    "fhevm",
+    "fully-homomorphic-encryption",
+    "ethereum",
+    "zama",
+    "tfhe",
+    "privacy",
+    "encryption",
+    "blockchain",
+    "web3"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/fhevm-sdk-pro.git"
+  },
+  "license": "MIT",
+  "author": "FHEVM SDK Contributors",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:coverage": "turbo run test:coverage",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "dev": "turbo run dev --parallel",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "turbo run build && changeset publish",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.1",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/node": "^20.10.5",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.6.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "turbo": "^1.11.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.12.1"
+}
