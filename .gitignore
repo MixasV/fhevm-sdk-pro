@@ -9,6 +9,7 @@ build/
 out/
 .next/
 *.tsbuildinfo
+public/
 
 # Testing
 coverage/
