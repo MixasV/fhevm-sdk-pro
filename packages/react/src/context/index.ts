@@ -1,7 +1,8 @@
 /**
  * React context for FHEVM
  * 
- * Placeholder for Sprint 2 implementation
+ * @packageDocumentation
  */
 
-export { FHEVMProvider } from './FHEVMProvider'
+export * from './FHEVMContext'
+export * from './FHEVMProvider'

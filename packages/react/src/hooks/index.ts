@@ -1,7 +1,12 @@
 /**
  * React hooks for FHEVM
  * 
- * Placeholder for Sprint 2 implementation
+ * @packageDocumentation
  */
 
-export { useFHEVM } from './useFHEVM'
+export * from './useFHEVM'
+export * from './useWallet'
+export * from './useEncrypt'
+export * from './useDecrypt'
+export * from './useReadEncrypted'
+export * from './useWriteEncrypted'
