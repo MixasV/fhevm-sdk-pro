@@ -1,5 +1,7 @@
 import { createSignal, Show, For } from 'solid-js'
-import { FHEVMProvider, createFHEVM, createWallet, createEncrypt } from '@mixaspro/solid'
+import { FHEVMProvider, useFHEVM } from '@mixaspro/solid'
+import { createWallet } from '@mixaspro/solid'
+import { createEncrypt } from '@mixaspro/solid'
 
 const POLL_ABI = [
   {
@@ -28,7 +30,7 @@ const pollOptions = [
 ]
 
 function PollContent() {
-  const fhevm = createFHEVM()
+  const fhevm = useFHEVM()
   const wallet = createWallet()
   const encrypt = createEncrypt()
   
@@ -79,7 +81,7 @@ function PollContent() {
         <h1>📊 Private Poll</h1>
         <p class="subtitle">Solid.js + FHEVM SDK</p>
         <Show when={fhevm.network()}>
-          <p class="network">Network: {fhevm.network()?.name}</p>
+          <p class="network">Network: {fhevm.network()?.name || 'Unknown'}</p>
         </Show>
       </header>
 
