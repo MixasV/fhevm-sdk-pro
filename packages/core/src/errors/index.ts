@@ -61,3 +61,36 @@ export class ValidationError extends FHEVMError {
     Object.setPrototypeOf(this, ValidationError.prototype)
   }
 }
+
+/**
+ * Error thrown during network operations
+ */
+export class NetworkError extends FHEVMError {
+  constructor(message: string) {
+    super('NETWORK_ERROR', message)
+    this.name = 'NetworkError'
+    Object.setPrototypeOf(this, NetworkError.prototype)
+  }
+}
+
+/**
+ * Error thrown during contract operations
+ */
+export class ContractError extends FHEVMError {
+  constructor(message: string) {
+    super('CONTRACT_ERROR', message)
+    this.name = 'ContractError'
+    Object.setPrototypeOf(this, ContractError.prototype)
+  }
+}
+
+/**
+ * Error thrown during wallet operations
+ */
+export class WalletError extends FHEVMError {
+  constructor(message: string) {
+    super('WALLET_ERROR', message)
+    this.name = 'WalletError'
+    Object.setPrototypeOf(this, WalletError.prototype)
+  }
+}
