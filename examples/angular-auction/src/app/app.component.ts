@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.fhevm.initialize({
       chainId: 11155111,
-      rpcUrl: 'https://rpc.ankr.com/eth_sepolia'
+      rpcUrl: 'https://ethereum-sepolia-rpc.publicnode.com'
     }).subscribe({
       next: () => {
         this.isInitialized = true

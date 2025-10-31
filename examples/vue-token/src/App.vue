@@ -86,7 +86,7 @@ import { useFHEVM, useWallet, useEncrypt } from '@mixaspro/vue'
 
 const fhevm = useFHEVM({
   chainId: 11155111,
-  rpcUrl: 'https://rpc.ankr.com/eth_sepolia'
+  rpcUrl: 'https://ethereum-sepolia-rpc.publicnode.com'
 })
 
 const wallet = useWallet()
