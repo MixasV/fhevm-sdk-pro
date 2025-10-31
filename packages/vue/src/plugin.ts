@@ -1,0 +1,112 @@
+/**
+ * FHEVM Vue plugin
+ * 
+ * @packageDocumentation
+ */
+
+import { reactive, type App, type Plugin } from 'vue'
+import { FHEVMClient } from '@fhevm-sdk/core'
+import { FHEVMContextKey, type FHEVMContext } from './composables/useFHEVM'
+import type { FHEVMConfig } from '@fhevm-sdk/core'
+
+/**
+ * FHEVM plugin options
+ */
+export interface FHEVMPluginOptions {
+  /**
+   * FHEVM configuration
+   */
+  config: FHEVMConfig
+
+  /**
+   * Auto-initialize on install
+   */
+  autoInit?: boolean
+
+  /**
+   * Auto-connect wallet on install
+   */
+  autoConnect?: boolean
+}
+
+/**
+ * Create FHEVM plugin
+ * 
+ * @param options - Plugin options
+ * @returns Vue plugin
+ * 
+ * @example
+ * ```typescript
+ * import { createApp } from 'vue'
+ * import { createFHEVMPlugin } from '@fhevm-sdk/vue'
+ * import App from './App.vue'
+ * 
+ * const app = createApp(App)
+ * 
+ * app.use(createFHEVMPlugin({
+ *   config: { chainId: 31337 },
+ *   autoInit: true
+ * }))
+ * 
+ * app.mount('#app')
+ * ```
+ */
+export function createFHEVMPlugin(options: FHEVMPluginOptions): Plugin {
+  const context: FHEVMContext = reactive({
+    client: null,
+    isInitialized: false,
+    network: null,
+    wallet: null,
+    error: null,
+  })
+
+  async function initialize(): Promise<void> {
+    try {
+      context.error = null
+
+      const fhevmClient = new FHEVMClient()
+      await fhevmClient.initialize(options.config)
+
+      context.client = fhevmClient
+      context.isInitialized = true
+      context.network = fhevmClient.getNetwork()
+
+      // Auto-connect if requested
+      if (options.autoConnect && (window as any).ethereum) {
+        try {
+          const walletInfo = await fhevmClient.connectWallet((window as any).ethereum)
+          context.wallet = walletInfo
+        } catch (walletError) {
+          console.warn('Auto-connect failed:', walletError)
+        }
+      }
+    } catch (err) {
+      context.error = err instanceof Error ? err : new Error('Initialization failed')
+      throw context.error
+    }
+  }
+
+  return {
+    install(app: App) {
+      // Provide context
+      app.provide(FHEVMContextKey, context)
+
+      // Auto-initialize if requested
+      if (options.autoInit) {
+        initialize().catch((err) => {
+          console.error('FHEVM initialization failed:', err)
+        })
+      }
+
+      // Expose globally (optional)
+      app.config.globalProperties['$fhevm'] = context
+    },
+  }
+}
+
+// Declare module augmentation for global properties
+declare module 'vue' {
+  export interface ComponentCustomProperties {
+    $fhevm: FHEVMContext
+  }
+}
