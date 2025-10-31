@@ -6,7 +6,7 @@
  * @packageDocumentation
  */
 
-import { BrowserProvider, Contract, JsonRpcProvider, type Eip1193Provider } from 'ethers'
+import { AbiCoder, BrowserProvider, Contract, JsonRpcProvider, type Eip1193Provider } from 'ethers'
 import { createInstance, initFhevm, type FhevmInstance } from 'fhevmjs'
 
 import {
@@ -543,10 +543,23 @@ export class FHEVMClient {
     }
 
     try {
-      // In real implementation, this would fetch from ACL contract
-      // For now, use mock key
+      // Fetch public key from FHE library contract
+      const FHE_LIB_ADDRESS = '0x000000000000000000000000000000000000005d'
+      const GET_PUBLIC_KEY_DATA = '0xd9d47bb001' // first 4 bytes of keccak256('fhePubKey(bytes1)') + 1 byte for library
+      
+      const result = await this.provider.call({
+        to: FHE_LIB_ADDRESS,
+        data: GET_PUBLIC_KEY_DATA,
+      })
+
+      // Decode the result (bytes)
+      const abiCoder = AbiCoder.defaultAbiCoder()
+      const decoded = abiCoder.decode(['bytes'], result)
+      const publicKeyBytes = decoded[0] as string
+
+      // Remove '0x' prefix and store
       this.publicKey = {
-        publicKey: this.generateMockPublicKey(),
+        publicKey: publicKeyBytes.startsWith('0x') ? publicKeyBytes.slice(2) : publicKeyBytes,
       }
     } catch (error) {
       throw new NetworkError(
@@ -585,8 +598,9 @@ export class FHEVMClient {
     const networks: Record<number, string> = {
       1: 'Ethereum Mainnet',
       5: 'Goerli Testnet',
+      11155111: 'Sepolia Testnet',
       31337: 'Hardhat Local',
-      8009: 'Zama Devnet',
+      8009: 'Zama Devnet (Deprecated)',
     }
     return networks[chainId] || `Unknown (${chainId})`
   }
